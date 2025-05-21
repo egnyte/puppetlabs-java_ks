@@ -30,7 +30,7 @@ Puppet::Type.type(:java_ks).provide(:keytool) do
       chain_certs = get_chain(certificate)
       x509_cert = chain_certs.shift
     end
-    pkcs12 = OpenSSL::PKCS12.create(password, @resource[:name], pkey, x509_cert, chain_certs)
+    pkcs12 = OpenSSL::PKCS12.create(password, @resource[:name], pkey, x509_cert, chain_certs, "AES-256-CBC", "AES-256-CBC")
     File.open(path, 'wb') { |f| f.print pkcs12.to_der }
   end
 
