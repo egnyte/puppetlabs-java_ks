@@ -66,7 +66,7 @@ Puppet::Type.type(:java_ks).provide(:keytool) do
     source_pword = sourcepassword
 
     tmpfile = Tempfile.new("#{@resource[:name]}.")
-    contents = if File.exist?(@resource[:target]) && !File.empty?(@resource[:target])
+    contents = if !File.zero?(@resource[:target])
                  if source_pword.nil?
                    "#{pword}\n#{pword}"
                  else
